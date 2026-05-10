@@ -69,7 +69,7 @@
         /* ── HEADER ─────────────────────────────────── */
         .site-header {
             position: fixed; top: 38px; left: 0; right: 0;
-            z-index: 1000; height: 70px;
+            z-index: 1000; height: 80px;
             background: rgba(240,234,230,.97);
             backdrop-filter: blur(14px);
             border-bottom: 1px solid rgba(159,206,209,.25);
@@ -80,7 +80,7 @@
         .site-header.topbar-gone { top: 0; }
         .site-header.scrolled { box-shadow: 0 4px 24px rgba(110,142,145,.15); }
         .header-logo { display: flex; align-items: center; text-decoration: none; }
-        .header-logo img { height: 52px; width: auto; }
+        .header-logo img { height: 66px; width: auto; }
         .main-nav { display: flex; align-items: center; gap: 1.75rem; }
         .main-nav a {
             font-family: var(--font-sec); font-size: .81rem; font-weight: 500;
@@ -113,7 +113,7 @@
         /* Mobile drawer */
         .mobile-menu {
             display: none; position: fixed;
-            top: 108px; left: 0; right: 0;
+            top: 118px; left: 0; right: 0;
             background: rgba(240,234,230,.98);
             backdrop-filter: blur(16px);
             z-index: 998;
@@ -144,7 +144,7 @@
         .hero {
             position: relative;
             min-height: 100vh;
-            padding-top: 108px;
+            padding-top: 118px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -306,24 +306,76 @@
         }
 
         /* ── BENEFICIOS ──────────────────────────────── */
-        .beneficios { background: #fff; }
+        .beneficios {
+            background: linear-gradient(160deg, #faf7f4 0%, #f0eae6 55%, #fdf9f7 100%);
+            position: relative; overflow: hidden; padding: 5rem 2.5rem;
+        }
+        .beneficios::before {
+            content: ''; position: absolute; top: -140px; right: -100px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(159,206,209,.13) 0%, transparent 68%);
+            pointer-events: none;
+        }
+        .beneficios::after {
+            content: ''; position: absolute; bottom: -90px; left: -70px;
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, rgba(252,220,217,.17) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .ben-header { text-align: center; margin-bottom: 2.75rem; position: relative; z-index: 1; }
+        .ben-header .section-subtitle { margin-bottom: 0; }
         .ben-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(265px,1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            position: relative; z-index: 1;
         }
         .ben-card {
-            background: var(--cream); border-radius: var(--radius);
-            padding: 2rem; transition: transform .3s, box-shadow .3s;
+            background: rgba(255,255,255,.72);
+            backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,.88);
+            border-radius: 18px;
+            padding: 1.6rem 1rem 1.4rem;
+            display: flex; flex-direction: column;
+            align-items: center; text-align: center; gap: .65rem;
+            box-shadow: 0 2px 16px rgba(110,142,145,.07), 0 1px 3px rgba(110,142,145,.05);
+            opacity: 0; transform: translateY(24px);
+            cursor: default;
+            transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease, border-color .4s ease;
         }
-        .ben-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+        .ben-card.ben-entering {
+            opacity: 1; transform: translateY(0);
+            transition: opacity .6s ease var(--stagger,0s),
+                        transform .6s cubic-bezier(.22,1,.36,1) var(--stagger,0s),
+                        box-shadow .4s ease, border-color .4s ease;
+        }
+        .ben-card.ben-entered {
+            opacity: 1; transform: translateY(0);
+            transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease, border-color .4s ease;
+        }
+        .ben-card.ben-entered:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 52px rgba(110,142,145,.17), 0 0 0 1.5px rgba(159,206,209,.4);
+            border-color: rgba(159,206,209,.5);
+        }
         .ben-icon {
-            width: 56px; height: 56px; background: var(--mint);
-            border-radius: 14px; display: flex; align-items: center;
-            justify-content: center; font-size: 1.6rem; margin-bottom: 1.2rem;
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--mint) 0%, rgba(159,206,209,.5) 100%);
+            border-radius: 13px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--teal-dark);
+            transition: transform .35s cubic-bezier(.34,1.56,.64,1), background .3s ease;
+            flex-shrink: 0;
         }
-        .ben-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: .5rem; }
-        .ben-card p { font-size: .9rem; line-height: 1.65; }
+        .ben-card.ben-entered:hover .ben-icon {
+            transform: scale(1.1) rotate(-6deg);
+            background: linear-gradient(135deg, rgba(159,206,209,.6) 0%, var(--mint) 100%);
+        }
+        .ben-label {
+            font-family: var(--font-sec); font-size: .69rem;
+            font-weight: 700; letter-spacing: .1em;
+            text-transform: uppercase; color: var(--text-dark); line-height: 1.45;
+        }
 
         /* ── PARA QUIÉN ──────────────────────────────── */
         .para-quien { background: var(--cream); }
@@ -459,7 +511,7 @@
             display: grid; grid-template-columns: 1.2fr 1fr 1fr;
             gap: 3rem; margin-bottom: 2.5rem;
         }
-        .footer-brand img { height: 54px; filter: brightness(0) invert(1); opacity: .8; margin-bottom: 1rem; display: block; }
+        .footer-brand img { height: 72px; filter: brightness(0) invert(1); opacity: .8; margin-bottom: 1rem; display: block; }
         .footer-brand p { font-size: .86rem; line-height: 1.7; }
         .footer-col h4 {
             font-family: var(--font-sec); font-size: .73rem; font-weight: 700;
@@ -560,16 +612,21 @@
             .gallery-grid    { grid-template-columns: 1fr 1fr; }
             .g-item:first-child { grid-column: span 2; }
             .footer-grid     { grid-template-columns: 1fr; gap: 2rem; }
+            .ben-grid        { grid-template-columns: repeat(3, 1fr); gap: .85rem; }
+            .ben-card:last-child { grid-column: 2; }
         }
         @media (max-width: 600px) {
             .topbar          { display: none; }
             .site-header     { top: 0; }
-            .mobile-menu     { top: 70px; }
-            .hero            { padding-top: 70px; min-height: 100svh; }
+            .mobile-menu     { top: 80px; }
+            .hero            { padding-top: 80px; min-height: 100svh; }
             .hero-inner      { padding: 3rem 1.25rem 3.5rem; }
             .hero h1         { font-size: clamp(2rem, 9vw, 2.8rem); }
             .hero-subtitle   { font-size: .95rem; }
             section          { padding: 4rem 1.25rem; }
+            .beneficios      { padding: 4rem 1.25rem; }
+            .ben-grid        { grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+            .ben-card:last-child { grid-column: auto; }
             .gallery-grid    { grid-template-columns: 1fr; }
             .g-item:first-child { grid-column: span 1; }
             .price-grid      { grid-template-columns: 1fr; }
@@ -660,40 +717,83 @@
 <!-- ════════════════ BENEFICIOS ════════════════ -->
 <section class="beneficios" id="beneficios">
     <div class="section-inner">
-        <span class="section-tag">¿Por qué Althea?</span>
-        <h2 class="section-title">Todo lo que necesitas para ejercer,<br>sin lo que no necesitas</h2>
-        <p class="section-subtitle">Diseñado específicamente para profesionales de la salud que quieren una consulta representativa sin las ataduras de un alquiler tradicional.</p>
+        <div class="ben-header">
+            <span class="section-tag">¿Por qué Althea?</span>
+            <h2 class="section-title">Todo lo que necesitas para<br>centrarte en tus pacientes</h2>
+            <p class="section-subtitle">Cada detalle del centro ha sido cuidado para que solo tengas que llegar y trabajar.</p>
+        </div>
         <div class="ben-grid">
+
             <div class="ben-card">
-                <div class="ben-icon">🔇</div>
-                <h3>Insonorización total</h3>
-                <p>Cada despacho garantiza la confidencialidad absoluta de tus sesiones. Tus pacientes llegan y lo notan desde el primer momento.</p>
+                <div class="ben-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a1 1 0 0 1-1-1v-5a9 9 0 0 1 18 0v5a1 1 0 0 1-1 1h-1a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2"/></svg>
+                </div>
+                <span class="ben-label">Insonorización<br>total</span>
             </div>
+
             <div class="ben-card">
-                <div class="ben-icon">⚡</div>
-                <h3>Reserva flexible</h3>
-                <p>Por horas, jornadas, días o mes completo. Adaptas el espacio a tu agenda, no tu agenda al espacio.</p>
+                <div class="ben-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4M8 2v4M3 10h5"/><circle cx="18" cy="17" r="4"/><path d="M18 15v2l1.5 1.5"/></svg>
+                </div>
+                <span class="ben-label">Reserva<br>flexible</span>
             </div>
+
             <div class="ben-card">
-                <div class="ben-icon">📍</div>
-                <h3>Ubicación premium</h3>
-                <p>En pleno Chamberí, uno de los barrios más representativos de Madrid. Fácil acceso en metro, bus y a pie desde toda la ciudad.</p>
+                <div class="ben-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <span class="ben-label">Ubicación<br>premium</span>
             </div>
+
             <div class="ben-card">
-                <div class="ben-icon">✅</div>
-                <h3>Totalmente equipados</h3>
-                <p>Mobiliario de diseño, climatización, WiFi de alta velocidad y todos los detalles para que solo tengas que llegar y trabajar.</p>
+                <div class="ben-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z"/><path d="M5 18v2M19 18v2"/></svg>
+                </div>
+                <span class="ben-label">Mobiliario<br>de diseño</span>
             </div>
+
             <div class="ben-card">
-                <div class="ben-icon">🏥</div>
-                <h3>Centro Sanitario Oficial</h3>
-                <p>Registrado como centro sanitario polivalente. Ejerce con toda la legalidad y el respaldo institucional que mereces.</p>
+                <div class="ben-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
+                </div>
+                <span class="ben-label">WiFi de alta<br>velocidad</span>
             </div>
+
             <div class="ben-card">
-                <div class="ben-icon">🤝</div>
-                <h3>Sin permanencia</h3>
-                <p>Sin contratos largos ni fianzas elevadas. Empieza cuando quieras, escala a tu ritmo y despreocúpate de los gastos fijos.</p>
+                <div class="ben-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg>
+                </div>
+                <span class="ben-label">Café y<br>bebidas</span>
             </div>
+
+            <div class="ben-card">
+                <div class="ben-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M9 20h6M12 16v4"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/><path d="M4 8h16"/></svg>
+                </div>
+                <span class="ben-label">Excelente<br>transporte</span>
+            </div>
+
+            <div class="ben-card">
+                <div class="ben-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>
+                </div>
+                <span class="ben-label">Parking<br>cercano</span>
+            </div>
+
+            <div class="ben-card">
+                <div class="ben-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                </div>
+                <span class="ben-label">Buena<br>iluminación</span>
+            </div>
+
+            <div class="ben-card">
+                <div class="ben-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+                <span class="ben-label">Espacios<br>configurables</span>
+            </div>
+
         </div>
     </div>
 </section>
@@ -731,28 +831,28 @@
         <p class="section-subtitle">Cada despacho ha sido pensado al detalle: luz natural, mobiliario cuidado, plantas y una atmósfera que favorece el vínculo terapéutico desde la primera sesión.</p>
         <div class="gallery-grid">
             <div class="g-item">
-                <img src="Despachos/IMG_6936.jpg" alt="Despacho con zona de consulta y área de estar">
-                <div class="g-overlay"><span>Zona de estar y escritorio con iluminación cálida</span></div>
+                <img src="Despachos/IMG_6936.jpg" alt="Despacho 1">
+                <div class="g-overlay"><span>Despacho 1</span></div>
             </div>
             <div class="g-item">
-                <img src="Despachos/IMG_6937.jpg" alt="Despacho Althea">
-                <div class="g-overlay"><span>Ambiente tranquilo y profesional</span></div>
+                <img src="Despachos/IMG_6937.jpg" alt="Despacho 2">
+                <div class="g-overlay"><span>Despacho 2</span></div>
             </div>
             <div class="g-item">
-                <img src="Despachos/IMG_6938.jpg" alt="Despacho terapéutico">
-                <div class="g-overlay"><span>Despacho totalmente equipado</span></div>
+                <img src="Despachos/IMG_6938.jpg" alt="Despacho 3">
+                <div class="g-overlay"><span>Despacho 3</span></div>
             </div>
             <div class="g-item">
-                <img src="Despachos/IMG_6939.jpg" alt="Espacio de consulta">
-                <div class="g-overlay"><span>Luz natural y diseño de calidad</span></div>
+                <img src="Despachos/IMG_6939.jpg" alt="Despacho 4">
+                <div class="g-overlay"><span>Despacho 4</span></div>
             </div>
             <div class="g-item">
-                <img src="Despachos/IMG_6945.jpg" alt="Despacho profesional">
-                <div class="g-overlay"><span>Espacios amplios con mobiliario premium</span></div>
+                <img src="Despachos/IMG_6945.jpg" alt="Despacho 5">
+                <div class="g-overlay"><span>Despacho 5</span></div>
             </div>
             <div class="g-item">
-                <img src="Despachos/IMG_6947.jpg" alt="Centro Althea Psicoworking">
-                <div class="g-overlay"><span>Centro sanitario de alto nivel en Chamberí</span></div>
+                <img src="Despachos/IMG_6947.jpg" alt="Despacho 6">
+                <div class="g-overlay"><span>Despacho 6</span></div>
             </div>
         </div>
         <div class="gallery-cta">
@@ -924,6 +1024,26 @@
         document.getElementById('hamburger').classList.remove('open');
         document.getElementById('mobile-menu').classList.remove('open');
     }
+
+    // Benefits stagger animation
+    (function() {
+        const cards = document.querySelectorAll('.ben-card');
+        cards.forEach((card, i) => card.style.setProperty('--stagger', `${i * 0.07}s`));
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const card = entry.target;
+                const delay = parseFloat(card.style.getPropertyValue('--stagger') || '0');
+                card.classList.add('ben-entering');
+                setTimeout(() => {
+                    card.classList.remove('ben-entering');
+                    card.classList.add('ben-entered');
+                }, (delay + 0.65) * 1000);
+                obs.unobserve(card);
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+        cards.forEach(c => obs.observe(c));
+    })();
 
     // Modal
     function openModal() {
